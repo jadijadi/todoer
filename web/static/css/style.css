@@ -3,8 +3,10 @@
 .grid-item {
   background: lightyellow;
   direction: rtl;
-  margin: 5pt;
+  margin: 10pt;
   padding: 20pt;
+  border: 2px solid lightgray;
+  border-radius: 10px;
 }
 
 
