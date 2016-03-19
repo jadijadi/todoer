@@ -7,8 +7,18 @@ For more information on this file, see
 https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 """
 
+
+# assuming your django settings file is at '/home/myusername/mysite/mysite/settings.py'
+import sys
+path = '/home/jadi/jodo/'
+if path not in sys.path:
+    sys.path.append(path)
+
+
+
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "jodo.settings")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
+
