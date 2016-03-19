@@ -1,0 +1,26 @@
+{% extends "template.html"%}
+{% load staticfiles %}
+
+
+{% block content %}
+
+
+<div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 200 }'>
+<h2 class="todoheader">کارهای پیش رو</h2>
+{% for task in tasks %}
+     <div class="grid-item">{{ task.text }}</div>
+{% endfor %}
+</div>
+
+<hr />
+
+<div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 200 }'>
+<h2 class="todoheader">کارهای انجام شده</h2>
+{% for task in tasksDone %}
+         <div class="grid-item taskdone">{{ task.text }}</div>
+{% endfor %}
+</div>
+
+</div>
+
+{% endblock %}
