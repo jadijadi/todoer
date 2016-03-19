@@ -11,7 +11,7 @@ from datetime import datetime
 # Create your views here.
 def index(request):
     responsetxt = ''
-    thisuser = User.objects.get(username=request.user.username)
+    #thisuser = User.objects.get(username=request.user.username)
 
     tasks = Task.objects.filter(status = 'W')
     tasksDone = Task.objects.filter(status = 'D')
