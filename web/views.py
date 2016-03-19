@@ -13,8 +13,8 @@ def index(request):
     responsetxt = ''
     thisuser = User.objects.get(username=request.user.username)
 
-    tasks = Task.objects.filter(user = thisuser, status = 'W')
-    tasksDone = Task.objects.filter(user = thisuser, status = 'D')
+    tasks = Task.objects.filter(status = 'W')
+    tasksDone = Task.objects.filter(status = 'D')
     context = {'tasks': tasks, 'tasksDone': tasksDone}
 
     #return redirect('/login/?next=%s' % request.path)
