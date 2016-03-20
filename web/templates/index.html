@@ -4,10 +4,32 @@
 
 {% block content %}
 
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+<form method="post" action="/task/add/">
+{% csrf_token %}
+<table>
+<tr>
+    <td><input type=text name=tasktext></td>
+    <td><input type=submit value="اضافه کردن"></td>
+</tr>
+</table>
+<input type="hidden" name="save" value="true" />
+</form>
+
+<hr >
+
 <h2 class="todoheader">کارهای پیش رو</h2>
 <div class="griddo">
 {% for task in tasks %}
-     <div class="grid-item">{{ task.text }}</div>
+     <div class="grid-item">
+       {{ task.text }}
+       <div class="linkdone">
+         <a class="linkdone" href="/task/{{ task.id }}/done/">انجام شد</a>
+       </div>
+
+     </div>
 {% endfor %}
 </div>
 
@@ -16,7 +38,12 @@
 <h2 class="todoheader">کارهای انجام شده</h2>
 <div class="griddone">
 {% for task in tasksDone %}
-         <div class="grid-item taskdone">{{ task.text }}</div>
+         <div class="grid-item taskdone">
+           {{ task.text }}
+           <div class="linkdone">
+             <a class="linkdone" href="/task/{{ task.id }}/redo/">فعال سازی مجدد</a>
+           </div>
+        </div>
 {% endfor %}
 </div>
 
