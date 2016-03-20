@@ -9,7 +9,12 @@
   border-radius: 10px;
 }
 
+.linkdone {
+  font-size: 8pt;
+  text-align: left;
+  text-decoration: none;
 
+}
 .content {
   direction: rtl;
   font-family: 'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;

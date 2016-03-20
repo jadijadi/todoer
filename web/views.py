@@ -8,6 +8,24 @@ from .models import Task
 from django import forms
 from datetime import datetime
 
+import time
+
+def RateLimited(maxPerSecond): # a decorator. @RateLimited(10) will let 10 runs in 1 seconds
+    minInterval = 1.0 / float(maxPerSecond)
+    def decorate(func):
+        lastTimeCalled = [0.0]
+        def rateLimitedFunction(*args,**kargs):
+            elapsed = time.clock() - lastTimeCalled[0]
+            leftToWait = minInterval - elapsed
+            if leftToWait>0:
+                time.sleep(leftToWait)
+            ret = func(*args,**kargs)
+            lastTimeCalled[0] = time.clock()
+            return ret
+        return rateLimitedFunction
+    return decorate
+
+
 # Create your views here.
 def index(request):
     responsetxt = ''
@@ -19,3 +37,56 @@ def index(request):
 
     #return redirect('/login/?next=%s' % request.path)
     return render(request, 'index.html', context)
+
+
+@login_required
+def taskdone(request, taskid):
+    #thiscustomer = Customer.objects.filter(user=User.objects.filter(username=request.POST.get('customername')))[0]
+    thisuser = request.user
+    thisTask = Task.objects.get(id=taskid, user = thisuser)
+    print (thisTask)
+    thisTask.status = 'D'
+    thisTask.save()
+    return redirect('/')
+
+@login_required
+def taskadd(request):
+    tasktext = request.POST['tasktext']
+    savedate = datetime.now()
+    thisTask = Task(text=tasktext, status='W', createdate = savedate, user=request.user)
+    thisTask.save()
+    return redirect('/')
+
+@login_required
+def taskredo(request, taskid):
+    #thiscustomer = Customer.objects.filter(user=User.objects.filter(username=request.POST.get('customername')))[0]
+    thisuser = request.user
+    thisTask = Task.objects.get(id=taskid, user = thisuser)
+    print (thisTask)
+    thisTask.status = 'W'
+    thisTask.save()
+    return redirect('/')
+
+
+def logout_page(request):
+    logout(request)
+    return redirect('/')
+
+@RateLimited(0.3)
+def login_page(request):
+    if ('dologin' in request.POST):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('/')
+            else:
+                return HttpResponse('your account is disabled')
+        else:
+            return HttpResponse('wrong user / pass. try again')
+
+
+    else:
+        return render(request, 'login.html')

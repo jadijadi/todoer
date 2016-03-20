@@ -1,0 +1,40 @@
+{% extends "template.html"%}
+{% load staticfiles %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action="/accounts/login/">
+{% csrf_token %}
+<table>
+<tr>
+    <td>User:</td>
+    <td><input type=text name=username></td>
+</tr>
+<tr>
+    <td>password:</td>
+    <td><input type=text name=password></td>
+</tr>
+
+</table>
+
+<div class="g-recaptcha" data-sitekey="6Lc3RxsTAAAAAMrxVGjf4JkAXcDZt16w5vdxZyjb"></div>
+
+<input type="submit" value="login" />
+<input type="hidden" name="dologin" value="true" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}
