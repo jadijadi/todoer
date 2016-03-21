@@ -1,27 +1,49 @@
 @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+/* entypo */
+[class*="fontawesome-"]:before {
+  font-family: 'fontawesome', sans-serif;
+}
+
+h5 {
+  font-family: 'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
+}
+
+body  {
+  font-family: 'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
+  direction: rtl;
+}
+
+
+.topleftlogo {
+    color: lightblue;
+    text-align: center;
+    font-size: 50px;
+}
+
 .grid-item {
-  background: lightyellow;
+  #background: lightyellow;
   direction: rtl;
   margin: 10pt;
-  padding: 20pt;
+  padding: 10pt;
+  padding-bottom: 0;
   border: 2px solid lightgray;
   border-radius: 10px;
 }
 
 .linkdone {
-  font-size: 8pt;
+
   text-align: left;
   text-decoration: none;
-
+  margin-top: 9px;
 }
+
 .content {
   direction: rtl;
   font-family: 'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
-
 }
 
 .taskdone {
-  background: lightgray;
   color: gray;
 }

@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html  class="no-js" lang="fa" dir="rtl">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="{% static 'favicon.ico' %}">
+
+    <link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+    <link href='http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'>
 
     <title>Jodo | Dashboard</title>
 
@@ -21,10 +24,57 @@
 
   <body>
 
-  <div class="content">
-    {% block content %}
-    {% endblock %}
-  </div>
 
+    <div class="off-canvas-wrapper">
+    <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+    <div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
+    <div class="row column">
+    <br>
+    <span class="fontawesome-coffee topleftlogo"></span>
+    <h5>فهرست کارهای جادی</h5>
+    <p>
+اینو تو عید شروع کردم که یک تودو لیست شخصی ولی عمومی باشه. شاید گسترشش دادم. عمدا شما می تونین ببینینش. شاید پروژه گسترش پیدا کرد و به بقیه هم سرویس داد.
+</p><p>
+  مطمئنا تودو لیست ها یکی از بهترین چیزهایی هستن که باید یاد بگیریم.
+    </p>
+    </div>
+    </div>
+    <div class="off-canvas-content" data-off-canvas-content>
+    <div class="title-bar hide-for-large">
+    <div class="title-bar-left">
+    <button class="menu-icon" type="button" data-open="my-info"></button>
+    <span class="title-bar-title">فهرست کارهای جادی</span>
+    </div>
+    </div>
+    <div class="callout primary">
+    <div class="row column">
+    <h1></h1>
+    <p class="lead"></p>
+    </div>
+    </div>
+    <div class="row">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class="row">
+    <div class="columns">
+    <ul class="menu">
+    <li><a href="/accounts/login">ورود</a></li>
+    <li><a href="/accounts/logout">خروج</a></li>
+    <li><a href="http://jadi.net">جادی</a></li>
+    </ul>
+
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+    <script>
+          $(document).foundation();
+        </script>
+    <script type="text/javascript" src="https://intercom.zurb.com/scripts/zcom.js"></script>
 </body>
 </html>

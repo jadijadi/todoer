@@ -3,6 +3,8 @@
 
 {% block content %}
 
+<div class="row small-12">
+<div class="columns small-12 large-6">
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
@@ -15,26 +17,31 @@
     <p>Please login to see this page.</p>
     {% endif %}
 {% endif %}
+<p>
+  این فعلا یک سیستم شخصی است که جادی برای استفاده خودش نوشته. نه خیلی محکم است و نه برای استفاده عمومی. در نتیجه لطفا برای هک و غیره تلاش نکنین (:
+</p>
+<p>
+ایده کلی اینه که سیستمی داشته باشیم که بشه توش فهرست کارها رو منیج کرد و اگر خواستیم به شکل عمومی به اشتراک بذاریم. با ایده یک کد سریع نیم ساعته برای عمومی کردن
+کارهای در دست انجام نوروز ۹۵ نوشته شد ولی شاید بیشتر از اینها توسعه پیدا کنه.
+</p>
+<p>
+خوش باشین و خندون و همیشه از برنامه نوشتن و مهمتر از اون، به انجام رسوندن کارها لذت ببرین. هیچ لذتی بالاتر از تیک زدن کارها نیست!
+</p>
 
-<form method="post" action="/accounts/login/">
-{% csrf_token %}
-<table>
-<tr>
-    <td>User:</td>
-    <td><input type=text name=username></td>
-</tr>
-<tr>
-    <td>password:</td>
-    <td><input type=text name=password></td>
-</tr>
+</div>
 
-</table>
+<div class="columns small-12 large-6">
+  <form method="post" action="/accounts/login/">
+  {% csrf_token %}
+  <label>نام کاربری</label>
+  <input type=text name=username>
+  <label>عبارت عبور</label>
+  <input type=password name=password>
+  <input type="submit" value="تلاش برای ورود" class="button expand"/>
+  <input type="hidden" name="dologin" value="true" />
+  <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+</div>
 
-<div class="g-recaptcha" data-sitekey="6Lc3RxsTAAAAAMrxVGjf4JkAXcDZt16w5vdxZyjb"></div>
-
-<input type="submit" value="login" />
-<input type="hidden" name="dologin" value="true" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
-
+</div>
 {% endblock %}

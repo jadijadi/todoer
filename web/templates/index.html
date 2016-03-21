@@ -4,44 +4,52 @@
 
 {% block content %}
 
-<script src='https://www.google.com/recaptcha/api.js'></script>
-
+<div class="columns">
 
 <form method="post" action="/task/add/">
-{% csrf_token %}
-<table>
-<tr>
-    <td><input type=text name=tasktext></td>
-    <td><input type=submit value="اضافه کردن"></td>
-</tr>
-</table>
-<input type="hidden" name="save" value="true" />
+  <fieldset class="fieldset">
+
+<div class="row">
+  <div class="small-12 medium-4 columns">
+    <lable>&nbsp;
+    <input type=submit value="اضافه کردن" class="button expanded">
+  </label>
+  </div>
+
+  <div class="small-12 medium-8 columns">
+    {% csrf_token %}
+    <label>چه کاری در پیشه؟
+    <input type="text" name=tasktext placeholder="کوچیک، مشخص و قابل اجرا...">
+    </label>
+  </div>
+  <input type="hidden" name="save" value="true"  />
+</fieldset>
+
 </form>
+</div>
 
-<hr >
-
-<h2 class="todoheader">کارهای پیش رو</h2>
+<h5>کارهای پیش رو</h5>
 <div class="griddo">
 {% for task in tasks %}
      <div class="grid-item">
        {{ task.text }}
        <div class="linkdone">
-         <a class="linkdone" href="/task/{{ task.id }}/done/">انجام شد</a>
+         <a class="success button" href="/task/{{ task.id }}/done/"><span class="fontawesome-ok"></span></a>
        </div>
 
      </div>
 {% endfor %}
 </div>
 
-<hr />
+<br /><br />
 
-<h2 class="todoheader">کارهای انجام شده</h2>
+<h5>کارهای انجام شده</h5>
 <div class="griddone">
 {% for task in tasksDone %}
          <div class="grid-item taskdone">
            {{ task.text }}
            <div class="linkdone">
-             <a class="linkdone" href="/task/{{ task.id }}/redo/">فعال سازی مجدد</a>
+             <a class="tiny success button alert" href="/task/{{ task.id }}/redo/"><span class="fontawesome-undo"></span></a>
            </div>
         </div>
 {% endfor %}
@@ -65,7 +73,7 @@ var msnry = new Masonry( elem, {
   gutter: 5,
   originLeft: false,
 });
-
-
 </script >
+
+</div>
 {% endblock %}

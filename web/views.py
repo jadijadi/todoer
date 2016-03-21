@@ -72,7 +72,7 @@ def logout_page(request):
     logout(request)
     return redirect('/')
 
-@RateLimited(0.3)
+@RateLimited(4)
 def login_page(request):
     if ('dologin' in request.POST):
         username = request.POST['username']
