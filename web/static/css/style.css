@@ -1,7 +1,6 @@
 @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 
 @import url(http://weloveiconfonts.com/api/?family=fontawesome);
-/* entypo */
 [class*="fontawesome-"]:before {
   font-family: 'fontawesome', sans-serif;
 }
