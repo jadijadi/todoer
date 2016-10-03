@@ -12,10 +12,11 @@ class Task(models.Model):
         ('D', 'Done'),
         ('C', 'Canceled'),
     )
-    def __str__(self):              # __unicode__ on Python 2
+#    def __str__(self):              # __unicode__ on Python 2
+    def __unicode__(self):              # __unicode__ on Python 2
         return self.text
     user = models.ForeignKey(User)
-    text = models.CharField(max_length=400)
+    text = models.CharField(max_length=400) 
     priority = models.IntegerField(default=0)
     status = models.CharField(max_length=1, default='W', choices=STATUSES)
     createdate = models.DateTimeField('create date', blank=True, null=True)

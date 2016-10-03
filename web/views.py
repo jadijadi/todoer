@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -28,11 +31,14 @@ def RateLimited(maxPerSecond): # a decorator. @RateLimited(10) will let 10 runs 
 
 # Create your views here.
 def index(request):
+    if request.user.is_anonymous():
+        return render(request, 'login.html')
+
     responsetxt = ''
     #thisuser = User.objects.get(username=request.user.username)
 
-    tasks = Task.objects.filter(status = 'W')
-    tasksDone = Task.objects.filter(status = 'D')
+    tasks = Task.objects.filter(status = 'W', user=request.user)
+    tasksDone = Task.objects.filter(status = 'D', user=request.user)
     context = {'tasks': tasks, 'tasksDone': tasksDone}
 
     #return redirect('/login/?next=%s' % request.path)
@@ -69,7 +75,8 @@ def taskredo(request, taskid):
 
 
 def logout_page(request):
-    logout(request)
+    if not request.user.is_anonymous():
+        logout(request)
     return redirect('/')
 
 @RateLimited(4)
@@ -85,8 +92,7 @@ def login_page(request):
             else:
                 return HttpResponse('your account is disabled')
         else:
-            return HttpResponse('wrong user / pass. try again')
-
-
+                context = {'message': 'نام کاربری یا کلمه عبور اشتباه بود'}
+                return render(request, 'login.html', context)
     else:
         return render(request, 'login.html')

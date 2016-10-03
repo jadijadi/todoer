@@ -30,10 +30,19 @@
 
 </div>
 
+
 <div class="columns small-12 large-6">
+
+
+  {% if message %}
+  <div class="panel callout warning radius">
+    <h5>{{ message }}</h5>
+  </div>
+  {% endif %}
+
   <form method="post" action="/accounts/login/">
   {% csrf_token %}
-  <label>نام کاربری</label>
+  <label>نام کاربری  </label>
   <input type=text name=username>
   <label>عبارت عبور</label>
   <input type=password name=password>
