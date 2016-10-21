@@ -7,6 +7,6 @@ At the moment this code can be seen in action at [todoer.ir](http://todoer.ir).
 TODO
 ====
 
-[] multiuser!
+[*] multiuser!
 [] more decent database
 [] search

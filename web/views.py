@@ -37,10 +37,17 @@ def index(request):
     responsetxt = ''
     #thisuser = User.objects.get(username=request.user.username)
 
-    tasks = Task.objects.filter(status = 'W', user=request.user)
-    tasksDone = Task.objects.filter(status = 'D', user=request.user)
-    context = {'tasks': tasks, 'tasksDone': tasksDone}
+    tasks = Task.objects.filter(status = 'W', user=request.user, mothertask=None)
+    waitingtasks = []
 
+    for task in tasks:
+        subtasks = Task.objects.filter(status='W', user=request.user, mothertask=task)
+        waitingtasks.append({'text': task.text, 'id': task.id, 'subtasks': subtasks})
+        #task['subtasks'] = subtask
+
+    tasksDone = Task.objects.filter(status = 'D', user=request.user)
+    context = {'tasks': waitingtasks, 'tasksDone': tasksDone}
+    
     #return redirect('/login/?next=%s' % request.path)
     return render(request, 'index.html', context)
 
@@ -59,7 +66,12 @@ def taskdone(request, taskid):
 def taskadd(request):
     tasktext = request.POST['tasktext']
     savedate = datetime.now()
-    thisTask = Task(text=tasktext, status='W', createdate = savedate, user=request.user)
+    try:
+        mothertask = Task.objects.get(id=request.POST['mothertask'], user=request.user)
+    except:
+        mothertask =  None
+
+    thisTask = Task(text=tasktext, status='W', createdate = savedate, user=request.user, mothertask=mothertask)
     thisTask.save()
     return redirect('/')
 

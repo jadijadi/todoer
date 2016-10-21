@@ -16,9 +16,10 @@ class Task(models.Model):
     def __unicode__(self):              # __unicode__ on Python 2
         return self.text
     user = models.ForeignKey(User)
-    text = models.CharField(max_length=400) 
+    text = models.CharField(max_length=400)
     priority = models.IntegerField(default=0)
     status = models.CharField(max_length=1, default='W', choices=STATUSES)
     createdate = models.DateTimeField('create date', blank=True, null=True)
     duedate = models.DateTimeField('due date', blank=True, null=True)
     actiondate = models.DateTimeField('action date', blank=True, null=True)
+    mothertask = models.ForeignKey('Task', blank=True, default='', null=True)
