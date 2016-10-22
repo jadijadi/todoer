@@ -3,94 +3,67 @@
 
 {% block content %}
 
-<div   class="label warning large">
-امکان اضافه کردن ساب تسک اضافه شده. هر تسک می تواند تسک هایی زیر خود داشته باشد. فانکشنالیتی سیستم درست است ولی در ظاهر تغییراتی خواهیم داشت
-</div>
-
-
-<div class="columns">
-
-<form method="post" action="/task/add/">
-  <input type="hidden" value="" name="mothertask" >
-  <fieldset class="fieldset">
-
-<div class="row">
-  <div class="small-12 medium-4 columns">
-    <lable>&nbsp;
-    <input type=submit value="اضافه کردن" class="button expanded">
-  </label>
-  </div>
-
-  <div class="small-12 medium-8 columns">
+<center >
+<form method="post" action="/task/add/" class="form-inline">
+  <div class="form-group has-success">
+  <label for="exampleInputName2">چه کاری در پیشه؟
+    <input type="hidden" value="" name="mothertask" ></label>
     {% csrf_token %}
-    <label>چه کاری در پیشه؟
-    <input type="text" name=tasktext placeholder="کوچیک، مشخص و قابل اجرا...">
-    </label>
+    <input type="text" name=tasktext placeholder="کوچیک، مشخص و قابل اجرا..." class="form-control">
+    <button type="submit"  class="form-control"  class="btn btn-default">اضافه کردن</button>
+    <input type="hidden" name="save" value="true"  />
   </div>
-  <input type="hidden" name="save" value="true"  />
-</fieldset>
-
 </form>
-</div>
+</center >
 
-<h5>کارهای پیش رو</h5>
-<div class="griddo">
+<hr >
 
+
+<h3>کارهای پیش رو</h3>
+<ul class="list-unstyled">
 {% for task in tasks %}
-     <div class="grid-item">
-       {{ task.text }}
-       <div class="linkdone">
-         <a class="success button" href="/task/{{ task.id }}/done/"><span class="fontawesome-ok"></span></a>
-       </div>
-       <hr >
-       <form action="/task/add/" method="POST">
-         {% csrf_token %}
-         <input name="tasktext" placeholder="زیر تسک؟" size=12>
-         <input type="hidden" value="{{task.id}}" name="mothertask" >
-       </form>
-       <p></p>
-       {% for subtask in task.subtasks %}
-        <a style="align: middle" class="button success tiny" href="/task/{{ subtask.id }}/done/"><span class="fontawesome-ok"></span></a> {{subtask.text}}
-        <br />
-       {% endfor %}
+     <li class=todoli >
+       <form action="/task/add/" method="POST" class="form-inline" >
+       <a class="todoitem " href="/task/{{ task.id }}/done/"><i class="fa fa-square-o " aria-hidden="true"></i></a> {{ task.text }}
 
-     </div>
+         {% csrf_token %}
+         <input name="tasktext" placeholder="اضافه کردن زیرتسک" size=12>
+         <input type="hidden" value="{{task.id}}" name="mothertask" >
+       </form></small></h4>
+       <ul class="list-unstyled">
+         {% for subtask in task.subtasks %}
+         <li >
+          <a style="" class="todosubitem " href="/task/{{ subtask.id }}/done/"><i class="fa fa-square-o" aria-hidden="true"></i></a> {{subtask.text}}
+        </li>
+         {% endfor %}
+      </ul>
+     </li>
 {% endfor %}
-</div>
+</ul>
 
 <br /><br />
 
-<h5>کارهای انجام شده</h5>
-<div class="griddone">
+<h3>کارهای انجام شده</h3>
+<ul class="list-unstyled" >
 {% for task in tasksDone %}
-         <div class="grid-item taskdone">
-           {{ task.text }}
-           <div class="linkdone">
-             <a class="tiny success button alert" href="/task/{{ task.id }}/redo/"><span class="fontawesome-undo"></span></a>
-           </div>
-        </div>
+         <li >
+           <a type="button" href="/task/{{ task.id }}/redo/"><span class="fontawesome-undo"></span></a> {{ task.text }}
+        </li>
 {% endfor %}
-</div>
-
-</div>
+</ul>
 
 <script >
-var elem = document.querySelector('.griddo');
-var msnry = new Masonry( elem, {
-  itemSelector: '.grid-item',
-  columnWidth: 40,
-  gutter: 5,
-  originLeft: false,
-});
+$(document).ready(function () {
+        $('.fa-square-o').hover(function () {
+            $(this).addClass('fa-check-square-o');
+            $(this).removeClass('fa-square-o');
+        }, function () {
+            $(this).addClass('fa-square-o');
+            $(this).removeClass('fa-check-square-o');
+        });
 
-var elem = document.querySelector('.griddone');
-var msnry = new Masonry( elem, {
-  itemSelector: '.grid-item',
-  columnWidth: 40,
-  gutter: 5,
-  originLeft: false,
-});
-</script >
 
-</div>
+});
+</script>
+
 {% endblock %}

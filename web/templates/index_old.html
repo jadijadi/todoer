@@ -1,0 +1,96 @@
+{% extends "template.html"%}
+{% load staticfiles %}
+
+{% block content %}
+
+<div   class="label warning large">
+امکان اضافه کردن ساب تسک اضافه شده. هر تسک می تواند تسک هایی زیر خود داشته باشد. فانکشنالیتی سیستم درست است ولی در ظاهر تغییراتی خواهیم داشت
+</div>
+
+
+<div class="columns">
+
+<form method="post" action="/task/add/">
+  <input type="hidden" value="" name="mothertask" >
+  <fieldset class="fieldset">
+
+<div class="row">
+  <div class="small-12 medium-4 columns">
+    <lable>&nbsp;
+    <input type=submit value="اضافه کردن" class="button expanded">
+  </label>
+  </div>
+
+  <div class="small-12 medium-8 columns">
+    {% csrf_token %}
+    <label>چه کاری در پیشه؟
+    <input type="text" name=tasktext placeholder="کوچیک، مشخص و قابل اجرا...">
+    </label>
+  </div>
+  <input type="hidden" name="save" value="true"  />
+</fieldset>
+
+</form>
+</div>
+
+<h5>کارهای پیش رو</h5>
+<div class="griddo">
+
+{% for task in tasks %}
+     <div class="grid-item">
+       {{ task.text }}
+       <div class="linkdone">
+         <a class="success button" href="/task/{{ task.id }}/done/"><span class="fontawesome-ok"></span></a>
+       </div>
+       <hr >
+       <form action="/task/add/" method="POST">
+         {% csrf_token %}
+         <input name="tasktext" placeholder="زیر تسک؟" size=12>
+         <input type="hidden" value="{{task.id}}" name="mothertask" >
+       </form>
+       <p></p>
+       {% for subtask in task.subtasks %}
+        <a style="align: middle" class="button success tiny" href="/task/{{ subtask.id }}/done/"><span class="fontawesome-ok"></span></a> {{subtask.text}}
+        <br />
+       {% endfor %}
+
+     </div>
+{% endfor %}
+</div>
+
+<br /><br />
+
+<h5>کارهای انجام شده</h5>
+<div class="griddone">
+{% for task in tasksDone %}
+         <div class="grid-item taskdone">
+           {{ task.text }}
+           <div class="linkdone">
+             <a class="tiny success button alert" href="/task/{{ task.id }}/redo/"><span class="fontawesome-undo"></span></a>
+           </div>
+        </div>
+{% endfor %}
+</div>
+
+</div>
+
+<script >
+var elem = document.querySelector('.griddo');
+var msnry = new Masonry( elem, {
+  itemSelector: '.grid-item',
+  columnWidth: 40,
+  gutter: 5,
+  originLeft: false,
+});
+
+var elem = document.querySelector('.griddone');
+var msnry = new Masonry( elem, {
+  itemSelector: '.grid-item',
+  columnWidth: 40,
+  gutter: 5,
+  originLeft: false,
+});
+</script >
+
+</div>
+{% endblock %}

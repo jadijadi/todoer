@@ -10,14 +10,19 @@
     <meta name="author" content="">
     <link rel="icon" href="{% static 'favicon.ico' %}">
 
-    <link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
-    <link href='http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'>
+    <title>تودویر، به زندگی شکل بدین</title>
 
-    <title>Jodo | Dashboard</title>
-
+    <script src="/static/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css"  crossorigin="anonymous">
+    <script src="/static/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+    <script src="/static/js/awesome.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css" >
     <!-- Latest compiled and minified CSS -->
 
-    <script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
     <link rel="stylesheet" href="/static/css/style.css" >
 
   </head>
@@ -25,56 +30,57 @@
   <body>
 
 
-    <div class="off-canvas-wrapper">
-    <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
-    <div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
-    <div class="row column">
-    <br>
-    <span class="fontawesome-coffee topleftlogo"></span>
-    <h5>فهرست کارهای جادی</h5>
-    <p>
-اینو تو عید شروع کردم که یک تودو لیست شخصی ولی عمومی باشه. شاید گسترشش دادم. عمدا شما می تونین ببینینش. شاید پروژه گسترش پیدا کرد و به بقیه هم سرویس داد.
-</p><p>
-  مطمئنا تودو لیست ها یکی از بهترین چیزهایی هستن که باید یاد بگیریم.
-    </p>
-    </div>
-    </div>
-    <div class="off-canvas-content" data-off-canvas-content>
-    <div class="title-bar hide-for-large">
-    <div class="title-bar-left">
-    <button class="menu-icon" type="button" data-open="my-info"></button>
-    <span class="title-bar-title">فهرست کارهای جادی</span>
-    </div>
-    </div>
-    <div class="callout primary">
-    <div class="row column">
-    <h1></h1>
-    <p class="lead"></p>
-    </div>
-    </div>
-    <div class="row">
-        {% block content %}
-        {% endblock %}
-    </div>
 
-    <div class="row">
-    <div class="columns">
-    <ul class="menu">
-    <li><a href="/accounts/login">ورود</a></li>
-    <li><a href="/accounts/logout">خروج</a></li>
-    <li><a href="http://jadi.net">درباره جادی</a></li>
-    </ul>
 
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
-    <script>
-          $(document).foundation();
-        </script>
-    <script type="text/javascript" src="https://intercom.zurb.com/scripts/zcom.js"></script>
-</body>
-</html>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top rtl" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                      <span class="fontawesome-coffee topleftlogo"></span>
+                    </a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                      <li><a href="/accounts/logout">خروج</a></li>
+                      <li><a href="/accounts/login">ورود</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                  {% block content %}
+
+
+
+                  {% endblock %}
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+
+        <!-- jQuery -->
+        <script src="/static/js/jquery.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="/static/js/bootstrap.min.js"></script>
+
+
+
+      </body>
+    </html>
