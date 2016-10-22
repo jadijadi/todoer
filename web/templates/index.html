@@ -4,12 +4,12 @@
 {% block content %}
 
 <center >
-<form method="post" action="/task/add/" class="form-inline">
+<form method="post" action="/task/add/" class="form-inline ">
   <div class="form-group has-success">
-  <label for="exampleInputName2">چه کاری در پیشه؟
-    <input type="hidden" value="" name="mothertask" ></label>
+  <h3>چه کاری در پیشه؟</h3>
+    <input type="hidden" value="" name="mothertask" >
     {% csrf_token %}
-    <input type="text" name=tasktext placeholder="کوچیک، مشخص و قابل اجرا..." class="form-control">
+    <input type="text" name="tasktext" placeholder="کوچیک، مشخص و قابل اجرا..." class="form-control">
     <button type="submit"  class="form-control"  class="btn btn-default">اضافه کردن</button>
     <input type="hidden" name="save" value="true"  />
   </div>
@@ -24,7 +24,7 @@
 {% for task in tasks %}
      <li class=todoli >
        <form action="/task/add/" method="POST" class="form-inline" >
-       <a class="todoitem " href="/task/{{ task.id }}/done/"><i class="fa fa-square-o " aria-hidden="true"></i></a> {{ task.text }}
+       <a class="todoitem " href="/task/{{ task.id }}/done/"><i class="fa fa-square-o fa-2x tickicon" aria-hidden="true"></i></a> {{ task.text }}
 
          {% csrf_token %}
          <input name="tasktext" placeholder="اضافه کردن زیرتسک" size=12>
