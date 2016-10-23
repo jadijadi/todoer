@@ -51,8 +51,11 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                      {% if user.is_authenticated %}
                       <li><a href="/accounts/logout">خروج</a></li>
+                      {% else %}
                       <li><a href="/accounts/login">ورود</a></li>
+                      {% endif %}
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -62,15 +65,13 @@
 
         <!-- Page Content -->
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
+
                   {% block content %}
 
 
 
                   {% endblock %}
-                </div>
-            </div>
+
         </div>
         <!-- /.container -->
 

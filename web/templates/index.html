@@ -3,20 +3,31 @@
 
 {% block content %}
 
-<center >
-<form method="post" action="/task/add/" class="form-inline ">
-  <div class="form-group has-success">
-  <h3>چه کاری در پیشه؟</h3>
-    <input type="hidden" value="" name="mothertask" >
-    {% csrf_token %}
-    <input type="text" name="tasktext" placeholder="کوچیک، مشخص و قابل اجرا..." class="form-control">
-    <button type="submit"  class="form-control"  class="btn btn-default">اضافه کردن</button>
-    <input type="hidden" name="save" value="true"  />
-  </div>
+<h3>چه کاری در پیشه؟</h3>
+<form method="post" action="/task/add/"  >
+  <div class="row">
+    <div class="col-lg-1 col-sm-4">
+      <button type="submit"    class="btn btn-primary">اضافه کردن</button>
+      <input type="hidden" name="save" value="true"  />
+    </div>
+
+      <div class="col-lg-11 col-sm-8">
+
+            <input type="hidden" value="" name="mothertask" >
+            {% csrf_token %}
+            <input type="text" name="tasktext" placeholder="کوچیک، مشخص و قابل اجرا..." class="form-control">
+          </div>
+      </div>
+    </div>
 </form>
-</center >
 
 <hr >
+
+
+<div class="row">
+  <div class="col-lg-2">
+  </div>
+    <div class="col-lg-8">
 
 
 <h3>کارهای پیش رو</h3>
@@ -25,9 +36,10 @@
      <li class=todoli >
        <form action="/task/add/" method="POST" class="form-inline" >
        <a class="todoitem " href="/task/{{ task.id }}/done/"><i class="fa fa-square-o fa-2x tickicon" aria-hidden="true"></i></a> {{ task.text }}
-
+       <span onclick="showelement("subtask-{{task.id}}")"></span>
          {% csrf_token %}
-         <input name="tasktext" placeholder="اضافه کردن زیرتسک" size=12>
+         <input name="tasktext" class="subtask-{{task.id}} subtaskinput" placeholder="اضافه کردن زیرتسک" size=12>
+         <button class="btn-{{task.id}} btn-xs btn btn-info" onclick='showsubtaskinput("{{task.id}}"); return false;'>+</button>
          <input type="hidden" value="{{task.id}}" name="mothertask" >
        </form></small></h4>
        <ul class="list-unstyled">
@@ -54,6 +66,7 @@
 
 <script >
 $(document).ready(function () {
+        $(".subtaskinput").fadeOut(0);
         $('.fa-square-o').hover(function () {
             $(this).addClass('fa-check-square-o');
             $(this).removeClass('fa-square-o');
@@ -62,8 +75,25 @@ $(document).ready(function () {
             $(this).removeClass('fa-check-square-o');
         });
 
-
 });
+
+function showsubtaskinput(elementid){
+  if ($('.btn-'+elementid).text() == '+') {
+    $('.subtask-'+elementid).fadeIn(250);
+    $('.btn-'+elementid).text ('-');
+  }
+  else {
+    $('.subtask-'+elementid).fadeOut(250);
+    $('.btn-'+elementid).text ('+');
+  }
+  // دگمه رو عوض کنیم به منفی و اگر منفی رو زد المنت رو حذف کنیم
+  return 0;
+}
 </script>
 
+<div class="col-lg-2">
+</div>
+
+</div>
+</div>
 {% endblock %}
