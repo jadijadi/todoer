@@ -38,8 +38,12 @@ body  {
 
 }
 
-.tickicon {
 
+.buttonmoresub {
+  opacity: 0.65;
+}
+.tickicon {
+  opacity: 0.65;
 }
 
 .todoli {

@@ -39,7 +39,7 @@
        <span onclick="showelement("subtask-{{task.id}}")"></span>
          {% csrf_token %}
          <input name="tasktext" class="subtask-{{task.id}} subtaskinput" placeholder="اضافه کردن زیرتسک" size=12>
-         <span class="btn-{{task.id}} btn-xs btn btn-info" onclick='showsubtaskinput("{{task.id}}"); return false;'>+</span>
+         <span class="btn-{{task.id}} btn-xs btn btn-info buttonmoresub" onclick='showsubtaskinput("{{task.id}}"); return false;'>+</span>
          <input type="hidden" value="{{task.id}}" name="mothertask" >
        </form></small></h4>
        <ul class="list-unstyled">
