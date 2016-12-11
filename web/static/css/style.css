@@ -5,6 +5,7 @@
   font-family: 'fontawesome', sans-serif;
 }
 
+
 h5 {
   font-family: 'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
 }
@@ -75,4 +76,8 @@ body {
     .navbar-fixed-top .navbar-brand {
         padding: 15px 0;
     }
+}
+
+.subtaskinput {
+    width: 67%;
 }

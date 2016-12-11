@@ -23,12 +23,10 @@
 
 <hr >
 
-
 <div class="row">
   <div class="col-lg-2">
   </div>
     <div class="col-lg-8">
-
 
 <h3>کارهای پیش رو</h3>
 <ul class="list-unstyled">
@@ -80,6 +78,7 @@ $(document).ready(function () {
 function showsubtaskinput(elementid){
   if ($('.btn-'+elementid).text() == '+') {
     $('.subtask-'+elementid).fadeIn(250);
+    $('.subtask-'+elementid).focus();
     $('.btn-'+elementid).text ('-');
   }
   else {
