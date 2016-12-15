@@ -84,3 +84,4 @@ STATIC_URL = '/static/'
 
 
 RECAPTCHA_SECRET_KEY = 'some code from google recaptcha'
+POSTMARK_API_TOKEN='postmark api token for sending confirmation emails when signing up'

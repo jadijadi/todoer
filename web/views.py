@@ -99,11 +99,11 @@ def register(request):
                 username = request.POST['username']
                 temporarycode = Passwordresetcodes (email = email, time = now, code = code, username=username, password=password)
                 temporarycode.save()
-                message = PMMail(api_key = os.environ.get('POSTMARK_API_TOKEN'),
+                message = PMMail(api_key = settings.POSTMARK_API_TOKEN,
                                  subject = "فعال سازی اکانت تودو",
                                  sender = "jadi@jadi.net",
                                  to = email,
-                                 text_body = "click on http://todoer.ir/accounts/register/?email={}&code={}".format(email, code),
+                                 text_body = "برای فعال سازی ایمیلی تودویر خود روی لینک روبرو کلیک کنید: http://todoer.ir/accounts/register/?email={}&code={}".format(email, code),
                                  tag = "Create account")
                 message.send()
                 context = {'message': 'ایمیلی حاوی لینک فعال سازی اکانت به شما فرستاده شده، لطفا پس از چک کردن ایمیل، روی لینک کلیک کنید.'}
