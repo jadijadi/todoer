@@ -105,11 +105,12 @@ def register(request):
                                  to = email,
                                  text_body = "click on http://todoer.ir/accounts/register/?email={}&code={}".format(email, code),
                                  tag = "Create account")
-                #message.send()
+                message.send()
                 context = {'message': 'ایمیلی حاوی لینک فعال سازی اکانت به شما فرستاده شده، لطفا پس از چک کردن ایمیل، روی لینک کلیک کنید.'}
                 return render(request, 'login.html', context)
         else:
-            context = {'message': 'متاسفانه این نام کاربری قبلا استفاده شده است. از نام کاربری دیگری استفاده کنید'} #TODO: forgot password
+            context = {'message': 'متاسفانه این نام کاربری قبلا استفاده شده است. از نام کاربری دیگری استفاده کنید. ببخشید که فرم ذخیره نشده. درست می شه'} #TODO: forgot password
+            #TODO: keep the form data
             return render(request, 'register.html', context)
     elif request.GET.has_key('code'): # user clicked on code
         email = request.GET['email']
