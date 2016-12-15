@@ -89,6 +89,62 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+def resetpassword(request):
+    logger.debug("def resetpassword")
+    if request.POST.has_key('requestcode'): #form is filled. if not spam, generate code and save in db and send email. wait for click on email.
+
+        if not grecaptcha_verify(request): # captcha was not correct
+            context = {'message': 'کپچای گوگل درست وارد نشده بود. شاید ربات هستید؟ کد یا کلیک یا تشخیص عکس زیر فرم را درست پر کنید. ببخشید که فرم به شکل اولیه برنگشته!'} #TODO: forgot password
+            return render(request, 'register.html', context)
+
+        logger.debug("def register requestcode: " + format(request.POST)) #TODO: password should be asked AFTER user clicked on code - not when asking for reset link!
+        code = random_str(28)
+        now = datetime.now()
+        email = request.POST['email']
+        password = request.POST['password']
+        if User.objects.filter(email=email).exists(): #does this email exists?
+            this_user = User.objects.get(email=email)
+            temporarycode = Passwordresetcodes (email = email, time = now, code = code, password=password)
+            temporarycode.save()
+            message = PMMail(api_key = settings.POSTMARK_API_TOKEN,
+                             subject = "ریست پسورد تودویر",
+                             sender = "jadi@jadi.net",
+                             to = email,
+                             text_body = "خطری نیست! نام کاربری شما: «{}» است و برای فعال کردن پسورد جدید خود کافی است اینجا کلیک کنید:\n http://todoer.ir/accounts/resetpassword/?code={}\nدر صورتی که شما در todoer.ir درخواست تغییر پسورد نداده اید، به این ایمیل توجه نکنید".format(this_user.username, code),
+                             tag = "Password reset")
+            message.send()
+            logger.debug("def resetpassword email for http://todoer.ir/accounts/resetpassword/?email={}&code={}".format(email, code))
+            context = {'message': 'ایمیلی به شما ارسال شده. در صورتی که روی لینک موجود در آن کلیک کنید، پسورد شما به چیزی که الان وارد کردید تغییر می کند. روش فوق العاده ای نیست ولی کار می کند!'}
+            return render(request, 'login.html', context)
+        else: # there is no user with that email
+            logger.debug("def resetpassword requestcode no user with email ".format(email))
+            context = {'message': 'کاربری با این ایمیل در دیتابیس ما وجود ندارد! اگر مشکل واقعا جدی است به http://gapper.ir/channel/todoer مراجعه کنید و مساله را بنویسید'}
+            return render(request, 'login.html', context)
+
+    elif request.GET.has_key('code'): #clicked on email, passwd the code
+        logger.debug("def resetpassword code: " + format(request.GET))
+        code = request.GET['code']
+        if Passwordresetcodes.objects.filter(code=code).exists(): #if code is in temporary db, read the data and create the user
+            target_tmp_user = Passwordresetcodes.objects.get(code=code) #related email in the resetpassword db
+            target_user = User.objects.get(email=target_tmp_user.email)
+            logger.debug("def resetpassword user {} with code {}".format(target_user.username, code))
+            target_user.set_password(target_tmp_user.password)
+            target_user.save()
+            Passwordresetcodes.objects.filter(code=code).delete() #delete the temporary activation code from db
+            context = {'message': 'پسورد به چیزی که در فرم درخواست داده بودید تغییر یافت. لطفا لاگین کنید. خواهش میکنم!'}
+            return render(request, 'login.html', context)
+        else:
+            context = {'message': 'این کد فعال سازی معتبر نیست. در صورت نیاز دوباره تلاش کنید'}
+            return render(request, 'login.html', context)
+    else:
+        context = {'message': ''}
+        return render(request, 'resetpassword.html', context)
+
+
+
+
+
+
 def register(request):
     logger.debug("def register")
     if request.POST.has_key('requestcode'): #form is filled. if not spam, generate code and save in db, wait for email confirmation, return message
@@ -96,6 +152,11 @@ def register(request):
         #is this spam? check reCaptcha
         if not grecaptcha_verify(request): # captcha was not correct
             context = {'message': 'کپچای گوگل درست وارد نشده بود. شاید ربات هستید؟ کد یا کلیک یا تشخیص عکس زیر فرم را درست پر کنید. ببخشید که فرم به شکل اولیه برنگشته!'} #TODO: forgot password
+            return render(request, 'register.html', context)
+
+        if User.objects.filter(email = request.POST['email']).exists(): # duplicate email
+            context = {'message': 'متاسفانه این ایمیل قبلا استفاده شده است. در صورتی که این ایمیل شما است، از صفحه ورود گزینه فراموشی پسورد رو انتخاب کنین. ببخشید که فرم ذخیره نشده. درست می شه'} #TODO: forgot password
+            #TODO: keep the form data
             return render(request, 'register.html', context)
 
         if not User.objects.filter(username = request.POST['username']).exists(): #if user does not exists

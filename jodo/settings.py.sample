@@ -83,5 +83,50 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'filelogger': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'operation.log',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'django.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+        'web': {
+            'handlers': ['console', 'filelogger'],
+            'level': 'DEBUG',
+        },
+        'groups': {
+            'handlers': ['console', 'filelogger'],
+            'level': 'DEBUG',
+        },
+    },
+}
+
+
 RECAPTCHA_SECRET_KEY = 'some code from google recaptcha'
 POSTMARK_API_TOKEN='postmark api token for sending confirmation emails when signing up'
