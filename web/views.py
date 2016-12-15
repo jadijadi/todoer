@@ -88,7 +88,7 @@ def index(request):
     #return redirect('/login/?next=%s' % request.path)
     return render(request, 'index.html', context)
 
-
+@RateLimited(4)
 def resetpassword(request):
     logger.debug("def resetpassword")
     if request.POST.has_key('requestcode'): #form is filled. if not spam, generate code and save in db and send email. wait for click on email.
@@ -144,7 +144,7 @@ def resetpassword(request):
 
 
 
-
+@RateLimited(4)
 def register(request):
     logger.debug("def register")
     if request.POST.has_key('requestcode'): #form is filled. if not spam, generate code and save in db, wait for email confirmation, return message
