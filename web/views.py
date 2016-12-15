@@ -20,6 +20,9 @@ from postmark import PMMail
 
 random_str = lambda N: ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(N))
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -31,6 +34,7 @@ def get_client_ip(request):
 
 
 def grecaptcha_verify(request):
+    logger.debug("def grecaptcha_verify: " + format(request.POST))
     data = request.POST
     captcha_rs = data.get('g-recaptcha-response')
     url = "https://www.google.com/recaptcha/api/siteverify"
@@ -63,6 +67,7 @@ def RateLimited(maxPerSecond): # a decorator. @RateLimited(10) will let 10 runs 
 
 # Create your views here.
 def index(request):
+    logger.debug("def index: " + format(request.POST))
     if request.user.is_anonymous():
         return render(request, 'login.html')
 
@@ -85,7 +90,9 @@ def index(request):
 
 
 def register(request):
+    logger.debug("def register")
     if request.POST.has_key('requestcode'): #form is filled. if not spam, generate code and save in db, wait for email confirmation, return message
+        logger.debug("def register requestcode: " + format(request.POST))
         #is this spam? check reCaptcha
         if not grecaptcha_verify(request): # captcha was not correct
             context = {'message': 'کپچای گوگل درست وارد نشده بود. شاید ربات هستید؟ کد یا کلیک یا تشخیص عکس زیر فرم را درست پر کنید. ببخشید که فرم به شکل اولیه برنگشته!'} #TODO: forgot password
@@ -106,6 +113,7 @@ def register(request):
                                  text_body = "برای فعال سازی ایمیلی تودویر خود روی لینک روبرو کلیک کنید: http://todoer.ir/accounts/register/?email={}&code={}".format(email, code),
                                  tag = "Create account")
                 message.send()
+                logger.debug("def register email for http://todoer.ir/accounts/register/?email={}&code={}".format(email, code))
                 context = {'message': 'ایمیلی حاوی لینک فعال سازی اکانت به شما فرستاده شده، لطفا پس از چک کردن ایمیل، روی لینک کلیک کنید.'}
                 return render(request, 'login.html', context)
         else:
@@ -113,13 +121,13 @@ def register(request):
             #TODO: keep the form data
             return render(request, 'register.html', context)
     elif request.GET.has_key('code'): # user clicked on code
+        logger.debug("def register code: " + format(request.GET))
         email = request.GET['email']
         code = request.GET['code']
         if Passwordresetcodes.objects.filter(code=code).exists(): #if code is in temporary db, read the data and create the user
             new_temp_user = Passwordresetcodes.objects.get(code=code)
-            print new_temp_user
-            print new_temp_user.password
             newuser = User.objects.create_user(username=new_temp_user.username, password=new_temp_user.password, email=email)
+            logger.debug("def register user created: {} with code {}".format(newuser.username, code))
             Passwordresetcodes.objects.filter(code=code).delete() #delete the temporary activation code from db
             context = {'message': 'اکانت شما فعال شد. لاگین کنید - البته اگر دوست داشتی'}
             return render(request, 'login.html', context)
@@ -132,6 +140,7 @@ def register(request):
 
 @login_required
 def taskdone(request, taskid):
+    logger.debug("def taskdone: " + format(request.POST))
     #thiscustomer = Customer.objects.filter(user=User.objects.filter(username=request.POST.get('customername')))[0]
     thisuser = request.user
     thisTask = Task.objects.get(id=taskid, user = thisuser)
@@ -142,6 +151,7 @@ def taskdone(request, taskid):
 
 @login_required
 def taskadd(request):
+    logger.debug("def taskadd: " + format(request.POST))
     tasktext = request.POST['tasktext']
     savedate = datetime.now()
     try:
@@ -155,6 +165,7 @@ def taskadd(request):
 
 @login_required
 def taskredo(request, taskid):
+    logger.debug("def taskredo: " + format(request.POST))
     #thiscustomer = Customer.objects.filter(user=User.objects.filter(username=request.POST.get('customername')))[0]
     thisuser = request.user
     thisTask = Task.objects.get(id=taskid, user = thisuser)
@@ -165,12 +176,15 @@ def taskredo(request, taskid):
 
 
 def logout_page(request):
+    logger.debug("def logout_page: " + format(request.POST))
     if not request.user.is_anonymous():
         logout(request)
     return redirect('/')
 
 @RateLimited(4)
 def login_page(request):
+    logger.debug("def login_page: " + format(request.POST))
+
     if ('dologin' in request.POST):
         username = request.POST['username']
         password = request.POST['password']
