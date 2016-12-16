@@ -18,7 +18,7 @@ blockquote.pull-left .small {
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", Helvetica, Arial, sans-serif;
   direction: rtl;
 }
 
@@ -34,7 +34,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", Helvetica, Arial, sans-serif;
 }
 
 .navbar-brand {
@@ -178,7 +178,7 @@ h6,
 }
 
 @media (min-width: 768px) {
-  
+
 }
 
 .nav-tabs-justified > li > a {
@@ -200,12 +200,12 @@ h6,
   top: -2px;
   right: 0;
   left: 21px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", Helvetica, Arial, sans-serif;
 }
 
 .close {
   float: left;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", Helvetica, Arial, sans-serif;
 }
 
 .caret {
@@ -241,7 +241,7 @@ h6,
 }
 
 @media (min-width: 768px) {
-  
+
 }
 
 .nav-tabs > li {
