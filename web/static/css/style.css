@@ -7,13 +7,18 @@
 }
 
 body  {
-  font-family: 'Samim' ,'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
+  font-family: 'Samim', 'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
   direction: rtl;
+  background: #F2F2E8;
+}
+
+.panel-default>.panel-heading {
+  background: #f5f5f5;
 }
 
 
 h1, h2, h3, h4,h5, h6 {
-  font-family: 'Samim' ,'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
+  font-family: 'Samim', 'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
 }
 
 
@@ -32,7 +37,7 @@ h1, h2, h3, h4,h5, h6 {
 
 .content {
   direction: rtl;
-  font-family: 'Samim' ,'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
+  font-family: 'Samim', 'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
 }
 
 .taskdone {
@@ -61,6 +66,10 @@ h1, h2, h3, h4,h5, h6 {
 
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+}
+
+.navbar-inverse {
+    background: #3c3c3c;
 }
 
 

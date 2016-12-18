@@ -27,7 +27,7 @@
           <h3 class="panel-title">کارهای پیش رو</h3>
         </div>
         <div class="panel-body">
-          <ul class="list-unstyled">
+          <ul class="list-unstyled" style="padding-right: 0px;">
           {% for task in tasks %}
                <li class=todoli >
                  <form action="/task/add/" method="POST" class="form-inline" >
@@ -55,7 +55,34 @@
 <br /><br />
 
 
-<script >
+
+
+</div>
+
+
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">کارهای انجام شده</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-unstyled" style="padding-right: 0px;">
+        {% for task in tasksDone %}
+                 <li >
+                   <a type="button" href="/task/{{ task.id }}/redo/"><span class="fontawesome-undo"></span></a> {{ task.text }}
+                </li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+<script  type="text/javascript">
+
 $(document).ready(function () {
         $(".subtaskinput").fadeOut(0);
         $('.fa-square-o').hover(function () {
@@ -82,26 +109,3 @@ function showsubtaskinput(elementid){
   return 0;
 }
 </script>
-
-</div>
-
-
-
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">کارهای انجام شده</h3>
-      </div>
-      <div class="panel-body">
-        <ul class="list-unstyled" >
-        {% for task in tasksDone %}
-                 <li >
-                   <a type="button" href="/task/{{ task.id }}/redo/"><span class="fontawesome-undo"></span></a> {{ task.text }}
-                </li>
-        {% endfor %}
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock %}
