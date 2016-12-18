@@ -58,6 +58,18 @@ h1, h2, h3, h4,h5, h6 {
 .todoli {
   margin-bottom: 12pt;
 }
+
+.footer {
+    margin-top: 100px;
+    background: #FCF8E3;
+    color: #555;
+    text-align: center;
+    padding: 20px;
+    -webkit-box-shadow: 1px 1px 2px rgba(51,51,51,0.2), -1px -1px 2px rgba(51,51,51,0.2);
+    box-shadow: 1px 1px 2px rgba(51,51,51,0.2), -1px -1px 2px rgba(51,51,51,0.2);
+}
+
+
 /*
  * Start Bootstrap - Logo Nav (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap
