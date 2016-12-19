@@ -11,6 +11,7 @@ from django.shortcuts import redirect
 from .models import Task, Passwordresetcodes
 from django import forms
 from datetime import datetime
+from django.contrib.auth.hashers import make_password
 import random
 import string
 import time
@@ -163,7 +164,7 @@ def register(request):
                 code = random_str(28)
                 now = datetime.now()
                 email = request.POST['email']
-                password = request.POST['password']
+                password = make_password(request.POST['password'])
                 username = request.POST['username']
                 temporarycode = Passwordresetcodes (email = email, time = now, code = code, username=username, password=password)
                 temporarycode.save()
@@ -187,7 +188,7 @@ def register(request):
         code = request.GET['code']
         if Passwordresetcodes.objects.filter(code=code).exists(): #if code is in temporary db, read the data and create the user
             new_temp_user = Passwordresetcodes.objects.get(code=code)
-            newuser = User.objects.create_user(username=new_temp_user.username, password=new_temp_user.password, email=email)
+            newuser = User.objects.create(username=new_temp_user.username, password=new_temp_user.password, email=email)
             logger.debug("def register user created: {} with code {}".format(newuser.username, code))
             Passwordresetcodes.objects.filter(code=code).delete() #delete the temporary activation code from db
             context = {'message': 'اکانت شما فعال شد. لاگین کنید - البته اگر دوست داشتی'}
