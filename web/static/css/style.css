@@ -156,3 +156,8 @@ body {
 .bs-callout-info h4 {
     color: #5bc0de;
 }
+
+.navbar-brand img {
+	margin-top: -5pt;
+	width: 70pt;
+}
