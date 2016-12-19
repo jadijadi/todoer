@@ -12,12 +12,9 @@
 
     <title>تودویر، به زندگی شکل بدین</title>
 
-    <script src="/static/js/jquery.min.js"></script>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/bootstrap-rtl.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css"  crossorigin="anonymous">
-    <script src="/static/js/bootstrap.min.js"  crossorigin="anonymous"></script>
-    <script src="/static/js/awesome.js"></script>
     <link rel="stylesheet" href="/static/css/style.css" >
     <!-- Latest compiled and minified CSS -->
 
@@ -51,14 +48,14 @@
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="nav navbar-nav navbar-left">
-                    {% if user.is_authenticated %}
-                    <li><a href="/accounts/logout">خروج</a></li>
-                    {% else %}
-                    <li><a href="/accounts/login">ورود</a></li>
-                    <li><a href="/accounts/register">ثبت نام</a></li>
-                    {% endif %}
-                  </ul>
+                    <ul class="nav navbar-nav navbar-left">
+                      {% if user.is_authenticated %}
+                      <li><a href="/accounts/logout">خروج</a></li>
+                      {% else %}
+                      <li><a href="/accounts/login">ورود</a></li>
+                      <li><a href="/accounts/register">ثبت نام</a></li>
+                      {% endif %}
+                    </ul>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
@@ -75,6 +72,16 @@
                   {% endblock %}
 
         </div>
+
+        <footer class="footer">
+          <div class="">
+            <div class="">
+              <p>
+                <strong>تودوئر</strong> یک پروژهٔ آزاد و متن‌باز است. <a href="https://github.com/jadijadi/todoer">مخرن اصلی</a>
+              </p>
+            </div>
+          </div>
+        </footer>
         <!-- /.container -->
 
         <!-- jQuery -->
@@ -84,6 +91,11 @@
         <script src="/static/js/bootstrap.min.js"></script>
 
 
+        <script src="/static/js/awesome.js"></script>
 
+
+        {% block footer %}
+
+        {% endblock %}
       </body>
     </html>

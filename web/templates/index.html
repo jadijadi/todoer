@@ -21,20 +21,21 @@
 <hr >
 
 <div class="row">
+
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">کارهای پیش رو</h3>
         </div>
         <div class="panel-body">
-          <ul class="list-unstyled">
+          <ul class="list-unstyled" style="padding-right: 0px;">
           {% for task in tasks %}
                <li class=todoli >
                  <form action="/task/add/" method="POST" class="form-inline" >
                  <a class="todoitem " href="/task/{{ task.id }}/done/"><i class="fa fa-square-o fa-2x tickicon" aria-hidden="true"></i></a> {{ task.text }}
                  <span onclick="showelement("subtask-{{task.id}}")"></span>
                    {% csrf_token %}
-                   <input name="tasktext" class="subtask-{{task.id}} subtaskinput" placeholder="اضافه کردن زیرتسک" size=12>
+                   <input name="tasktext" class="subtask-{{task.id}} subtaskinput form-control" placeholder="اضافه کردن زیرتسک" size=12>
                    <span class="btn-{{task.id}} btn-xs btn btn-info buttonmoresub" onclick='showsubtaskinput("{{task.id}}"); return false;'>+</span>
                    <input type="hidden" value="{{task.id}}" name="mothertask" >
                  </form></small></h4>
@@ -54,6 +55,33 @@
 
 <br /><br />
 
+
+
+</div>
+
+
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">کارهای انجام شده</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-unstyled"  style="padding-right: 0px;">
+        {% for task in tasksDone %}
+                 <li >
+                   <a type="button" href="/task/{{ task.id }}/redo/"><span class="fontawesome-undo"></span></a> {{ task.text }}
+                </li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
 
 <script >
 $(document).ready(function () {
@@ -82,26 +110,4 @@ function showsubtaskinput(elementid){
   return 0;
 }
 </script>
-
-</div>
-
-
-
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">کارهای انجام شده</h3>
-      </div>
-      <div class="panel-body">
-        <ul class="list-unstyled" >
-        {% for task in tasksDone %}
-                 <li >
-                   <a type="button" href="/task/{{ task.id }}/redo/"><span class="fontawesome-undo"></span></a> {{ task.text }}
-                </li>
-        {% endfor %}
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
 {% endblock %}
