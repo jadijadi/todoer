@@ -16,6 +16,9 @@ body  {
   background: #f5f5f5;
 }
 
+li {
+  overflow-wrap: break-word;
+}
 
 h1, h2, h3, h4,h5, h6 {
   font-family: 'Samim', 'Droid Arabic Naskh', ubuntu, tahoma, sans-serif;
@@ -155,4 +158,9 @@ body {
 }
 .bs-callout-info h4 {
     color: #5bc0de;
+}
+
+.navbar-brand img {
+	margin-top: -5pt;
+	width: 70pt;
 }

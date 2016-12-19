@@ -42,18 +42,21 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+
                     <a class="navbar-brand" href="#">
-                      تودوئر
+			<img src="/static/todoer.png" >
                     </a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-left">
                       {% if user.is_authenticated %}
+		      <li><a href="/static/todoer_release.apk">اپ اندروید</a></li>
                       <li><a href="/accounts/logout">خروج</a></li>
                       {% else %}
                       <li><a href="/accounts/login">ورود</a></li>
                       <li><a href="/accounts/register">ثبت نام</a></li>
+		      <li><a href="/static/todoer_release.apk">اپ اندروید</a></li>
                       {% endif %}
                     </ul>
                 </div>
@@ -76,8 +79,11 @@
         <footer class="footer">
           <div class="">
             <div class="">
+
               <p>
-                <strong>تودوئر</strong> یک پروژهٔ آزاد و متن‌باز است. <a href="https://github.com/jadijadi/todoer">مخرن اصلی</a>
+                <strong>تودوئر</strong> یک پروژهٔ آزاد و متن‌باز است.<br>
+			<a href="https://github.com/jadijadi/todoer">مخرن گیت‌هاب پروژه</a> |
+			<a href="http://gapper.ir/channel/todoer">گزارش مشکلات و پیشنهادها</a>
               </p>
             </div>
           </div>
@@ -97,5 +103,14 @@
         {% block footer %}
 
         {% endblock %}
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+          ga('create', 'UA-86661525-2', 'auto');
+          ga('send', 'pageview');
+        </script>
       </body>
     </html>
