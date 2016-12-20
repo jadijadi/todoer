@@ -11,5 +11,6 @@ urlpatterns = [
 
     url(r'^task/([0-9]+)/done/$', views.taskdone, name='taskdone'),
     url(r'^task/([0-9]+)/redo/$', views.taskredo, name='taskredo'),
+    url(r'^task/([0-9]+)/delete/$', views.deletetask, name='deletetask'),
     url(r'^task/add/$', views.taskadd, name='taskadd'),
 ]

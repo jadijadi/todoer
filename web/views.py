@@ -237,6 +237,18 @@ def taskredo(request, taskid):
     return redirect('/')
 
 
+@login_required
+def deletetask(request, taskid):
+    logger.debug("def deletetask: " + format(request.POST))
+    #thiscustomer = Customer.objects.filter(user=User.objects.filter(username=request.POST.get('customername')))[0]
+    thisuser = request.user
+    thisTask = Task.objects.get(id=taskid, user = thisuser)
+    print (thisTask)
+    thisTask.status = 'W'
+    thisTask.delete()
+    return redirect('/')
+
+
 def logout_page(request):
     logger.debug("def logout_page: " + format(request.POST))
     if not request.user.is_anonymous():
