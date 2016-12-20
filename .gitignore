@@ -65,3 +65,4 @@ target/
 jodo/settings.py
 jodo/wsgi.py
 notes.txt
+.venv
