@@ -3,20 +3,32 @@
 
 {% block content %}
 
-<h3>چه کاری در پیشه؟</h3>
-<form method="post" action="/task/add/"  >
-  <div class="row">
-    <div class="col-md-10 col-sm-8">
-      <input type="hidden" value="" name="mothertask" >
-      {% csrf_token %}
-      <input type="text" name="tasktext" placeholder="کوچیک، مشخص و قابل اجرا..." class="form-control">
-    </div>
-    <div class="col-md-2 col-sm-4">
-      <button type="submit"    class="btn btn-block btn-primary ">اضافه کردن</button>
-      <input type="hidden" name="save" value="true"  />
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-info" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      اپلیکیشن اندروید تودوئر را از <a href="/static/todoer_release.apk">اینجا</a> دانلود کنید
     </div>
   </div>
-</form>
+</div>
+
+<div class="well well-sm">
+  <h3>چه کاری در پیشه؟</h3>
+  <form method="post" action="/task/add/"  >
+    <div class="row">
+      <div class="col-md-10 col-sm-8">
+        <input type="hidden" value="" name="mothertask" >
+        {% csrf_token %}
+        <input type="text" name="tasktext" placeholder="کوچیک، مشخص و قابل اجرا..." class="form-control">
+      </div>
+      <div class="col-md-2 col-sm-4">
+        <button type="submit"    class="btn btn-block btn-primary ">اضافه کردن</button>
+        <input type="hidden" name="save" value="true"  />
+      </div>
+    </div>
+  </form>
+</div>
 
 <hr >
 
@@ -109,5 +121,11 @@ function showsubtaskinput(elementid){
   // دگمه رو عوض کنیم به منفی و اگر منفی رو زد المنت رو حذف کنیم
   return 0;
 }
+</script>
+
+<script type="text/javascript">
+$(".alert").fadeTo(10000, 500).slideUp(500, function(){
+    $(".alert").slideUp(10000);
+});
 </script>
 {% endblock %}
