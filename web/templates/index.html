@@ -84,7 +84,7 @@
         <ul class="list-unstyled"  style="padding-right: 0px;">
         {% for task in tasksDone %}
           <li >
-            <a type="button" href="/task/{{ task.id }}/redo/"><span class="fontawesome-undo"></span></a> <a type="button" href="/task/{{ task.id }}/delete/"><span class="fontawesome-trash text-danger"></span></a> {{ task.text }}
+            <a type="button" href="/task/{{ task.id }}/redo/"><span class="fontawesome-undo padd-5"></span></a> <a type="button" href="/task/{{ task.id }}/delete/"><span class="fontawesome-trash text-danger padd-5"></span></a> {{ task.text }}
          </li>
         {% endfor %}
         </ul>
