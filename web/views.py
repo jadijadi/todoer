@@ -83,7 +83,7 @@ def index(request):
         waitingtasks.append({'text': task.text, 'id': task.id, 'subtasks': subtasks})
         #task['subtasks'] = subtask
 
-    tasksDone = Task.objects.filter(status = 'D', user=request.user)
+    tasksDone = Task.objects.filter(status = 'D', user=request.user).order_by('-createdate').all()[:100]
     context = {'tasks': waitingtasks, 'tasksDone': tasksDone}
 
     #return redirect('/login/?next=%s' % request.path)
