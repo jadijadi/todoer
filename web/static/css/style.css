@@ -168,3 +168,8 @@ body {
 	margin-top: -5pt;
 	width: 70pt;
 }
+
+.subtaskeditbtn {
+  font-size: 0.65em;
+  vertical-align: bottom;
+}
