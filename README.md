@@ -1,12 +1,15 @@
-A Todo list. Please note that this software was going to be used only for a month and is not written security / performance / beaty in mind! 
+A simple todo list for myself, used by others :)
 
-Hope this changes soon.
+The service can be used by everyone at [todoer.ir](http://todoer.ir).
 
-At the moment this code can be seen in action at [todoer.ir](http://todoer.ir). 
+This is not going to be a full featured todo list. Simplicity it the main focus here. GTD rules.
 
 TODO
 ====
-
-[*] multiuser!
-[] more decent database
-[] search
+- [*] multiuser
+- [ ] more decent database
+- [ ] search
+- [ ] token for users
+- [ ] login webservice
+- [ ] browsable old tasks
+- [ ] task description
