@@ -6,7 +6,7 @@ This is not going to be a full featured todo list. Simplicity it the main focus 
 
 TODO
 ====
-- [*] multiuser
+- [x] multiuser
 - [ ] more decent database
 - [ ] search
 - [ ] token for users
