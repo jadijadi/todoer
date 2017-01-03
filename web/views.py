@@ -144,7 +144,6 @@ def resetpassword(request):
 
 
 
-
 @RateLimited(4)
 def register(request):
     logger.debug("def register")
@@ -206,10 +205,24 @@ def taskdone(request, taskid):
     #thiscustomer = Customer.objects.filter(user=User.objects.filter(username=request.POST.get('customername')))[0]
     thisuser = request.user
     thisTask = Task.objects.get(id=taskid, user = thisuser)
-    print (thisTask)
     thisTask.status = 'D'
     thisTask.save()
     return redirect('/')
+
+
+
+@login_required
+def taskedit(request):
+    logger.debug("def taskedit: " + format(request.POST))
+    #thiscustomer = Customer.objects.filter(user=User.objects.filter(username=request.POST.get('customername')))[0]
+    thisuser = request.user
+    taskid = request.POST['taskid']
+    tasktext = request.POST['tasktext']
+    thisTask = Task.objects.get(id=taskid, user = thisuser)
+    thisTask.text = tasktext
+    thisTask.save()
+    return redirect('/')
+
 
 @login_required
 def taskadd(request):

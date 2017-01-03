@@ -45,18 +45,66 @@
           <ul class="list-unstyled" style="padding-right: 0px;">
           {% for task in tasks %}
                <li class=todoli >
+                 <a class="todoitem " href="/task/{{ task.id }}/done/">
+                    <i class="fa fa-square-o fa-2x tickicon" aria-hidden="true">
+                    </i>
+                  </a> {{ task.text }} <!-- action buttons -->
+                 <span class="btn-{{task.id}} btn-xs btn btn-info buttonmoresub"
+                    onclick='showsubtaskinput("{{task.id}}"); return false;'>+</span>
+                 <span class="editbtn-{{task.id}} btn-xs btn btn-info buttonmoresub"
+                    onclick='showeditinput("{{task.id}}"); return false;'>
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </span>
+
                  <form action="/task/add/" method="POST" class="form-inline" >
-                 <a class="todoitem " href="/task/{{ task.id }}/done/"><i class="fa fa-square-o fa-2x tickicon" aria-hidden="true"></i></a> {{ task.text }}
                  <span onclick="showelement("subtask-{{task.id}}")"></span>
                    {% csrf_token %}
                    <input name="tasktext" class="subtask-{{task.id}} subtaskinput form-control" placeholder="اضافه کردن زیرتسک" size=12>
-                   <span class="btn-{{task.id}} btn-xs btn btn-info buttonmoresub" onclick='showsubtaskinput("{{task.id}}"); return false;'>+</span>
                    <input type="hidden" value="{{task.id}}" name="mothertask" >
-                 </form></small></h4>
-                 <ul class="list-unstyled">
+                 </form>
+
+                 <form action="/task/edit/" method="POST" class="form-inline" >
+                   {% csrf_token %}
+                   <input name="tasktext" class="edittask-{{task.id}}
+                    edittaskinput form-control" value="{{task.text}}"
+                    size=30>
+                   <input type="hidden" value="{{task.id}}" name="taskid" >
+                   <span class="edittask-{{task.id}} btn-xs btn btn-info buttonmoresub edittaskinput"
+                      onclick='fadeout("{{task.id}}"); return false;'>
+                       <i class="fa fa-ban " aria-hidden="true"></i>
+                    </span>
+                   <button type="submit" class="btn-xs btn btn-info buttonmoresub edittask-{{task.id}} edittaskinput">
+                         <i class="fa fa-floppy-o " aria-hidden="true"></i>
+                   </button>
+                 </form>
+                </small></h4>
+                <ul class="list-unstyled">
                    {% for subtask in task.subtasks %}
                    <li >
-                    <a style="" class="todosubitem " href="/task/{{ subtask.id }}/done/"><i class="fa fa-square-o" aria-hidden="true"></i></a> {{subtask.text}}
+                    <a style="" class="todosubitem "
+                         href="/task/{{ subtask.id }}/done/">
+                         <i class="fa fa-square-o" aria-hidden="true"></i>
+                    </a>
+                    {{subtask.text}}
+                    <span class="editbtn-{{subtask.id}} btn-xs btn btn-info buttonmoresub"
+                       onclick='showeditinput("{{subtask.id}}"); return false;'>
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                     </span>
+                       <form action="/task/edit/" method="POST" class="form-inline" >
+                         {% csrf_token %}
+                         <input name="tasktext" class="edittask-{{subtask.id}}
+                          edittaskinput form-control" value="{{subtask.text}}"
+                          size=30>
+                         <input type="hidden" value="{{subtask.id}}" name="taskid" >
+                         <span class="edittask-{{subtask.id}} btn-xs btn btn-info buttonmoresub edittaskinput"
+                            onclick='fadeout("{{subtask.id}}"); return false;'>
+                             <i class="fa fa-ban " aria-hidden="true"></i>
+                          </span>
+                          <button type="submit" class="btn-xs btn btn-info buttonmoresub edittask-{{task.id}} edittaskinput">
+                                <i class="fa fa-floppy-o " aria-hidden="true"></i>
+                          </button>
+                       </form>
+
                   </li>
                    {% endfor %}
                 </ul>
@@ -100,6 +148,7 @@
 <script >
 $(document).ready(function () {
         $(".subtaskinput").fadeOut(0);
+        $(".edittaskinput").fadeOut(0);
         $('.fa-square-o').hover(function () {
             $(this).addClass('fa-check-square-o');
             $(this).removeClass('fa-square-o');
@@ -122,6 +171,15 @@ function showsubtaskinput(elementid){
   }
   // دگمه رو عوض کنیم به منفی و اگر منفی رو زد المنت رو حذف کنیم
   return 0;
+}
+
+function fadeout(elementid){
+    $('.edittask-'+elementid).fadeOut(250);
+}
+function showeditinput(elementid){
+    $('.edittask-'+elementid).fadeIn(250);
+    $('.edittask-'+elementid).focus();
+    return 0;
 }
 </script>
 
